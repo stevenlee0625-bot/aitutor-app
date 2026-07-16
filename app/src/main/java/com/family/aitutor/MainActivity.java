@@ -10,9 +10,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        WebView webView = findViewById(R.id.webView);
+        // 直接动态创建一个 WebView，不需要找布局文件了
+        WebView webView = new WebView(this);
+        setContentView(webView);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString();
-                // 只允许局域网 IP 访问，其余外部链接统统静默拦截
                 if (url.startsWith("http://192.168.1.32:8080")) {
                     return false;
                 }
