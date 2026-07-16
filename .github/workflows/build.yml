@@ -22,6 +22,11 @@ jobs:
         with:
           sdk-version: '34'
           build-tools-version: '34.0.0'
+          java-version: '17'
+
+      # 关键保险：强制把 JAVA_HOME 环境变量指向 JDK 17
+      - name: Ensure JAVA_HOME is set to JDK 17
+        run: echo "JAVA_HOME=${{ env.JAVA_HOME }}" >> $GITHUB_ENV
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
