@@ -13,27 +13,29 @@ public class MainActivity extends AppCompatActivity {
 
         // 直接动态创建一个 WebView，不需要找布局文件了
         WebView webView = new WebView(this);
-        webView.getSettings().setJavaScriptEnabled(true);
-webView.getSettings().setDomStorageEnabled(true);
-webView.getSettings().setDatabaseEnabled(true);
-webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
-webView.setWebViewClient(new WebViewClient() {...
+        setContentView(webView);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setDatabaseEnabled(true);
+        webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString();
+                // 只允许局域网 IP 访问
                 if (url.startsWith("http://192.168.1.32:8080")) {
                     return false;
                 }
-                return true;
+                return true; // 外部链接静默拦截
             }
         });
+
         webView.loadUrl("http://192.168.1.32:8080");
     }
 }
