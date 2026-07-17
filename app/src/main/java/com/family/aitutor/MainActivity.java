@@ -13,7 +13,11 @@ public class MainActivity extends AppCompatActivity {
 
         // 直接动态创建一个 WebView，不需要找布局文件了
         WebView webView = new WebView(this);
-        setContentView(webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+webView.getSettings().setDomStorageEnabled(true);
+webView.getSettings().setDatabaseEnabled(true);
+webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
+webView.setWebViewClient(new WebViewClient() {...
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
